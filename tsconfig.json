@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["vite/client"], // 解决import.meta 找不到 ts的错误
+    "types": ["vite/client","node"], // 解决import.meta 找不到 ts的错误
     "allowJs": true, // 允许引入js
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -29,5 +29,6 @@
     }
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
+  // "noImplicitAny": false,
 }

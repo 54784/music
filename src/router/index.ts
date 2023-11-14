@@ -1,42 +1,27 @@
+
+// 通过vue-router插件实现模板路由配置
 import { createRouter, createWebHistory } from 'vue-router'
+import { constantRoute } from './routes'
+
+import { useUserStore } from '@/store'
+// 组件外访问小仓库是访问不到的 需要访问 大仓库
+import pinia from '@/store'
+const userStore = useUserStore(pinia)
 
 const router = createRouter({
   // 路由模式 hash
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/login',
-      component: () => import('@/views/login/index.vue')
-    },
-    {
-      path: '/',
-      component: () => import('@/views/layout/index.vue'),
-      name: 'layout',
-      redirect: '/home',
-      children: [
-        {
-          path: '/home',
-          component: () => import('@/views/layout/home/index.vue')
-        },
-        {
-          path: '/boke',
-          component: () => import('@/views/layout/boke/index.vue')
-        },
-        {
-          path: '/faxian',
-          component: () => import('@/views/layout/faxian/index.vue')
-        },
-        {
-          path: '/my',
-          component: () => import('@/views/layout/my/index.vue')
-        },
-        {
-          path: '/shequ',
-          component: () => import('@/views/layout/shequ/index.vue')
-        }
-      ]
-    }
-  ]
+  // 路由规则
+  routes: constantRoute,
+})
+
+// 底部播放组件的显示隐藏 若是登录页即隐藏
+router.beforeEach((to, from) => {
+  if (to.path == '/login') {
+    userStore.isShowFooter = false
+  } else {
+    userStore.isShowFooter = true
+  }
 })
 
 export default router
