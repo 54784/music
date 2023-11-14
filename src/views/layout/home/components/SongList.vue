@@ -9,7 +9,7 @@
         <van-swipe-item v-for="(item, index) in songLists" :key="index">
           <router-link :to="`/songListDetail?id=${item._id}`">
             <div class="box">
-              <img :src="item.picUrl" alt="">
+              <img :src="item.picUrl" alt="" />
               <div class="playcount">
                 <svg-icon name="playcount" width="14px" height="14px"></svg-icon>
                 <span>{{ changeCount(item.playCount) }}</span>
@@ -24,24 +24,22 @@
 </template>
 
 <script setup lang="ts">
-import { useGetSongSheetServer } from '@/api/music/music';
-import { ref ,onMounted } from 'vue'
+import { useGetSongSheetServer } from '@/api/music/music'
+import { ref, onMounted } from 'vue'
 
 // 歌单列表
-const songLists:any = ref([])
-onMounted(async ()=>{
+const songLists: any = ref([])
+onMounted(async () => {
   await getSongSheet()
 })
 
 // 获取歌单列表
-const getSongSheet = async ()=>{
+const getSongSheet = async () => {
   // limit  默认10条数据
-  const res:any = await useGetSongSheetServer()
+  const res: any = await useGetSongSheetServer()
   console.log(res)
   songLists.value = res.data
 }
-
-
 
 // 对播放量数量进行处理
 const changeCount = (num: number) => {
@@ -54,7 +52,6 @@ const changeCount = (num: number) => {
 </script>
 
 <style scoped lang="scss">
-
 .songList {
   width: 100%;
   // height: 260px;
@@ -100,7 +97,7 @@ const changeCount = (num: number) => {
           height: 100%;
           border-radius: 10px;
         }
-         
+
         .playcount {
           position: absolute;
           right: 6px;
@@ -109,7 +106,6 @@ const changeCount = (num: number) => {
 
           span {
             font-size: 12px;
-
           }
         }
 
@@ -123,9 +119,7 @@ const changeCount = (num: number) => {
           text-overflow: ellipsis;
         }
       }
-
     }
   }
-
 }
 </style>

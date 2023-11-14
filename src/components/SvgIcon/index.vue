@@ -20,8 +20,7 @@ defineProps({
 
   // 接收父组件传递颜色
   color: {
-    type: String,
-    
+    type: String
   },
   // 接收父组件传递宽 高
   width: {

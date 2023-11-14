@@ -1,4 +1,3 @@
-
 // 通过vue-router插件实现模板路由配置
 import { createRouter, createWebHistory } from 'vue-router'
 import { constantRoute } from './routes'
@@ -12,7 +11,7 @@ const router = createRouter({
   // 路由模式 hash
   history: createWebHistory(import.meta.env.BASE_URL),
   // 路由规则
-  routes: constantRoute,
+  routes: constantRoute
 })
 
 // 底部播放组件的显示隐藏 若是登录页即隐藏

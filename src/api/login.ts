@@ -8,10 +8,10 @@ export const useLoginService = (username: string, password: string) => {
 }
 
 // 获取用户信息
-export const useGetUserInfo = ()=>{
-  return request.get('/api/user/getUserInfo',)
+export const useGetUserInfo = () => {
+  return request.get('/api/user/getUserInfo')
 }
 
-export const useLogoutService = ()=>{
+export const useLogoutService = () => {
   return request.post('api/user/logout')
 }

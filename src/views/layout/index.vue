@@ -15,13 +15,12 @@
 
 <script setup lang="ts">
 import FooterMusic from '@/components/FooterMusic/index.vue'
-
 </script>
 
 <style scoped lang="scss">
-.van-tabbar{
+.van-tabbar {
   background-color: $index_bgcolor;
-  .van-tabbar-item{
+  .van-tabbar-item {
     font-size: 13px;
   }
 }

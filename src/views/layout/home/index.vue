@@ -17,15 +17,13 @@ import SongList from './components/SongList.vue'
 import FooterMusic from '@/components/FooterMusic/index.vue'
 
 import { onMounted } from 'vue'
-import { useFooterMusicStore ,useUserStore} from '@/store/index'
+import { useFooterMusicStore, useUserStore } from '@/store/index'
 const useFooterMusic = useFooterMusicStore()
 const userStore = useUserStore()
-onMounted(()=>{
+onMounted(() => {
   // useFooterMusic.getMusic()
   userStore.getUserInfo()
 })
-
-
 </script>
 
 <style scoped lang="scss">

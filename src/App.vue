@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useUserStore} from '@/store'
+import { useUserStore } from '@/store'
 import FooterMusic from './components/FooterMusic/index.vue'
 const userStore = useUserStore()
 </script>
@@ -15,6 +15,4 @@ const userStore = useUserStore()
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

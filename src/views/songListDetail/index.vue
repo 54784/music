@@ -1,7 +1,10 @@
 <template>
   <div class="songListDetail">
-      <DetialHeader :songSheetDetail="songSheetDetail"></DetialHeader>
-      <DetailMusicList :playLists="playLists" :subscribedCount="songSheetDetail?.subscribedCount"></DetailMusicList>
+    <DetialHeader :songSheetDetail="songSheetDetail"></DetialHeader>
+    <DetailMusicList
+      :playLists="playLists"
+      :subscribedCount="songSheetDetail?.subscribedCount"
+    ></DetailMusicList>
   </div>
 </template>
 
@@ -10,7 +13,7 @@ import DetialHeader from './components/DetialHeader.vue'
 import DetailMusicList from './components/DetailMusicList.vue'
 import { useRoute } from 'vue-router'
 import { onMounted, ref, reactive } from 'vue'
-import { useGetSongSheetDetailServer } from '@/api/music/music';
+import { useGetSongSheetDetailServer } from '@/api/music/music'
 
 onMounted(async () => {
   // <script setup> 中无法直接访问 $route 对象
@@ -23,14 +26,12 @@ const songSheetDetail = ref()
 // 播放列表
 const playLists = ref()
 // 获取歌单音乐列表
-const getSongSheetDetail = async (id:any)=>{
-  const res:any = await useGetSongSheetDetailServer(id)
-  console.log(res);
+const getSongSheetDetail = async (id: any) => {
+  const res: any = await useGetSongSheetDetailServer(id)
+  console.log(res)
   songSheetDetail.value = res.data.songSheetInfo
   playLists.value = res.data.musicDetail
 }
-
-
 
 /* // 歌单详情数据
   const playList = reactive({
@@ -227,8 +228,6 @@ const getSongSheetDetail = async (id:any)=>{
     ]
   },
 ]) */
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -237,8 +236,7 @@ const getSongSheetDetail = async (id:any)=>{
   height: 100vh;
   overflow: scroll;
   &::-webkit-scrollbar {
-  width: 0;
+    width: 0;
+  }
 }
-}
-
 </style>

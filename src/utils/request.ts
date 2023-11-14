@@ -11,8 +11,7 @@ const instance = axios.create({
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded'
   },
-  timeout: 8000, // 超时时间
-  
+  timeout: 8000 // 超时时间
 })
 
 // 添加请求拦截器
@@ -36,12 +35,12 @@ instance.interceptors.request.use(
     // 只要有token 就在请求时携带 便于请求需要授权的接口
     const useUser = useUserStore()
     const token = useUser.token
-    
+
     if (token) {
       config.headers.token = token
     }
     // console.log(config.headers);
-    
+
     return config
   },
   function (error) {

@@ -1,8 +1,14 @@
 <template>
   <div class="detialHeader">
-    <img class="bgimg" :src="songSheetDetail?.picUrl" alt="">
+    <img class="bgimg" :src="songSheetDetail?.picUrl" alt="" />
     <div class="navTop">
-      <svg-icon @click="$router.go(-1)" class="left" name="left" width="28px" height="28px"></svg-icon>
+      <svg-icon
+        @click="$router.go(-1)"
+        class="left"
+        name="left"
+        width="28px"
+        height="28px"
+      ></svg-icon>
       <span class="text">
         歌单
         <svg-icon class="r" name="R" width="10px" height="10px"></svg-icon>
@@ -14,12 +20,12 @@
     </div>
     <div class="content" v-if="songSheetDetail">
       <div class="picture">
-        <img :src="songSheetDetail?.picUrl" alt="">
+        <img :src="songSheetDetail?.picUrl" alt="" />
       </div>
       <div class="info">
         <p>{{ songSheetDetail?.name }}</p>
         <div class="userInfo">
-          <img class="avatar" :src="songSheetDetail?.picUrl" alt="">
+          <img class="avatar" :src="songSheetDetail?.picUrl" alt="" />
           <span class="username">{{ songSheetDetail?.name }}</span>
         </div>
         <div class="introduce">{{ songSheetDetail?.copywriter }}</div>
@@ -38,9 +44,9 @@
         <svg-icon name="download" width="26px" color="#F7F8FC" height="26px"></svg-icon>
         <span>下载</span>
       </div>
-      <div >
+      <div>
         <svg-icon name="multiplechoice" width="22px" color="#F7F8FC" height="22px"></svg-icon>
-        <span style="margin-top: 5px;">多选</span>
+        <span style="margin-top: 5px">多选</span>
       </div>
     </div>
   </div>
@@ -52,104 +58,100 @@ const data = defineProps({
   songSheetDetail: Object
 })
 // console.log(data.songSheetDetail);
-
 </script>
 
 <style lang="scss" scoped>
-.detialHeader{
+.detialHeader {
   position: relative;
   width: 100%;
   // height: 45%;
   // border: 1px solid red;
-  .navTop{
+  .navTop {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     // text-align: center;
     padding: 10px;
-    .text{
+    .text {
       position: relative;
-      color:#fff;
+      color: #fff;
       font-weight: 550;
       margin-left: 10px;
-      .r{
+      .r {
         position: absolute;
-
       }
     }
-    .right{
+    .right {
       position: relative;
-      .search{
-         position: absolute;
-         top:4px;
-         left:-34px;
+      .search {
+        position: absolute;
+        top: 4px;
+        left: -34px;
       }
     }
   }
-  .bgimg{
+  .bgimg {
     position: absolute;
     width: 100%;
     height: 350px;
     z-index: -1;
-    filter:blur(30px);
+    filter: blur(30px);
   }
-  .content{
+  .content {
     padding: 20px 10px 0 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    .picture{
-      img{
+    .picture {
+      img {
         width: 120px;
         height: 120px;
         border-radius: 10px;
       }
     }
-    .info{
+    .info {
       width: 62%;
       height: 120px;
       display: flex;
-      flex-direction:column;
+      flex-direction: column;
       justify-content: space-between;
-      p{
+      p {
         padding-top: 5px;
         font-size: 15px;
         color: #fff;
       }
-      .userInfo{
+      .userInfo {
         display: flex;
         align-items: center;
-        .avatar{
+        .avatar {
           width: 28px;
           height: 28px;
           border-radius: 50%;
         }
-        .username{
+        .username {
           margin-left: 5px;
-          color:#ccc;
+          color: #ccc;
         }
       }
-      .introduce{
+      .introduce {
         font-size: 13px;
       }
-      
     }
   }
-  .navList{
+  .navList {
     margin-top: 20px;
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    div{
+    div {
       text-align: center;
-      span{
+      span {
         font-size: 13px;
         display: block;
       }
     }
   }
-  
 }
 </style>

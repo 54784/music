@@ -2,7 +2,7 @@
   <div class="songMusicList">
     <div class="listTop">
       <div class="play">
-        <svg-icon name="playCircle" width="30px" height="30px" ></svg-icon>
+        <svg-icon name="playCircle" width="30px" height="30px"></svg-icon>
         <div class="info">
           <span class="playAll">播放全部</span>
           <span class="many">(共{{ playLists.length }}首)</span>
@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { Vue3Marquee } from 'vue3-marquee'
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 import { useFooterMusicStore } from '@/store/index'
 const useFooterMusic = useFooterMusicStore()
 const data = defineProps({
@@ -47,8 +47,8 @@ const data = defineProps({
 })
 // console.log(data.subscribedCount);
 
-const playMusic = (currentIndex:number)=>{
-  // 点击列表歌曲 更改仓库 playList 并把当前点击是下标(具体哪首歌)传过去 
+const playMusic = (currentIndex: number) => {
+  // 点击列表歌曲 更改仓库 playList 并把当前点击是下标(具体哪首歌)传过去
   useFooterMusic.updatePlayList(data.playLists)
   useFooterMusic.updatePlayListIndex(currentIndex)
 }
@@ -148,7 +148,6 @@ const playMusic = (currentIndex:number)=>{
           font-weight: 600;
           font-family: '黑体';
           border: 1px solid red;
-
         }
 
         .authorName {

@@ -3,8 +3,13 @@
   <div class="box">
     <div class="detailTop">
       <div class="return">
-        <svg-icon @click="useFooterMusic.updateDetailShow" name="return" color="#FBFAF5" width="30px"
-          height="30px"></svg-icon>
+        <svg-icon
+          @click="useFooterMusic.updateDetailShow"
+          name="return"
+          color="#FBFAF5"
+          width="30px"
+          height="30px"
+        ></svg-icon>
       </div>
       <div class="musicInfo">
         <!-- 使用跑马灯组件 -->
@@ -14,28 +19,58 @@
         <!-- <span class="author" v-for="(item, index) in playList?.author" :key="index">
           {{ item.name }}
         </span> -->
-        <span class="author" >
-          {{ playList?.musicArtist}}
+        <span class="author">
+          {{ playList?.musicArtist }}
         </span>
       </div>
       <div class="share">
-        <svg-icon @click="updateShowShare" name="share" color="#FBFAF5" width="30px" height="30px"></svg-icon>
+        <svg-icon
+          @click="updateShowShare"
+          name="share"
+          color="#FBFAF5"
+          width="30px"
+          height="30px"
+        ></svg-icon>
       </div>
       <van-share-sheet v-model:show="showShare" title="立即分享给好友" :options="options" />
     </div>
     <!-- 中间磁盘和磁针 -->
     <div class="detailCenter" v-show="isLyricShow" @click="isLyricShow = !isLyricShow">
-        <img class="magnetNeedle" :class="{play:!useFooterMusic.isPlay}" src="../../assets/cizhen.png" alt="">
-        <img class="disk" src="../../assets/cipan.png" alt="">
-        <!-- <img class="imgcenter" ref="avatarImg" :src="useFooterMusic.playList[0].al.picUrl" alt=""> -->
+      <img
+        class="magnetNeedle"
+        :class="{ play: !useFooterMusic.isPlay }"
+        src="../../assets/cizhen.png"
+        alt=""
+      />
+      <img class="disk" src="../../assets/cipan.png" alt="" />
+      <!-- <img class="imgcenter" ref="avatarImg" :src="useFooterMusic.playList[0].al.picUrl" alt=""> -->
 
-        <img class="imgcenter"  :src="playList?.coverImage" :class="{rotating:!useFooterMusic.isPlay}" alt="">
+      <img
+        class="imgcenter"
+        :src="playList?.coverImage"
+        :class="{ rotating: !useFooterMusic.isPlay }"
+        alt=""
+      />
     </div>
-    <div class="lyric"  ref="musicLyric" v-show="!isLyricShow" @click="isLyricShow = !isLyricShow"  @touchstart="handleLyricDragStart"
-    @touchend="handleLyricDragEnd">
-     <p v-for="(item, index) in lyric" :key="index" :class="{active:(useFooterMusic.currentTime)* 1000 >= item.time && (useFooterMusic.currentTime)* 1000 < item.pre}">
-      {{ item.lrc }}
-     </p>
+    <div
+      class="lyric"
+      ref="musicLyric"
+      v-show="!isLyricShow"
+      @click="isLyricShow = !isLyricShow"
+      @touchstart="handleLyricDragStart"
+      @touchend="handleLyricDragEnd"
+    >
+      <p
+        v-for="(item, index) in lyric"
+        :key="index"
+        :class="{
+          active:
+            useFooterMusic.currentTime * 1000 >= item.time &&
+            useFooterMusic.currentTime * 1000 < item.pre
+        }"
+      >
+        {{ item.lrc }}
+      </p>
     </div>
     <!-- 底部 控件 -->
     <div class="detailBottom">
@@ -51,7 +86,15 @@
       </div>
       <!-- 进度条 -->
       <div class="progressBar">
-        <input class="range" type="range" ref="one"   min="0" :max="(useFooterMusic.duration as string)" v-model="useFooterMusic.currentTime"  step="0.05"  >
+        <input
+          class="range"
+          type="range"
+          ref="one"
+          min="0"
+          :max="useFooterMusic.duration as string"
+          v-model="useFooterMusic.currentTime"
+          step="0.05"
+        />
       </div>
       <!-- 音乐控件 -->
       <div class="controlMusic">
@@ -65,8 +108,22 @@
         </div>
         <!-- 开始 暂停 -->
         <div>
-          <svg-icon v-if="useFooterMusic.isPlay" @click="play" name="play1" color="#F7F8FC" width="25px" height="25px" ></svg-icon>
-          <svg-icon v-else @click="noplay" name="suspend" color="#F7F8FC" width="25px" height="25px"></svg-icon>
+          <svg-icon
+            v-if="useFooterMusic.isPlay"
+            @click="play"
+            name="play1"
+            color="#F7F8FC"
+            width="25px"
+            height="25px"
+          ></svg-icon>
+          <svg-icon
+            v-else
+            @click="noplay"
+            name="suspend"
+            color="#F7F8FC"
+            width="25px"
+            height="25px"
+          ></svg-icon>
         </div>
         <!-- 下一首 -->
         <div @click="goplay(1)">
@@ -74,7 +131,7 @@
         </div>
         <!-- 播放列表 -->
         <div>
-          <svg-icon name="playlist-fff" width="20px" height="20px" ></svg-icon>
+          <svg-icon name="playlist-fff" width="20px" height="20px"></svg-icon>
         </div>
       </div>
     </div>
@@ -86,22 +143,21 @@
 const props = defineProps({
   playList: Object,
   updateDetailShow: Function,
-  play:Function,
-  noplay:Function,
-  audio:Object,
-  handleEnded:Function,
-  addDuration:Function
+  play: Function,
+  noplay: Function,
+  audio: Object,
+  handleEnded: Function,
+  addDuration: Function
 })
 let audios = props.audio
 
-
 // pnpm install vue3-marquee@latest --save 跑马灯插件
 import { Vue3Marquee } from 'vue3-marquee'
-import { ref , onMounted, computed ,reactive,watch,nextTick} from 'vue'
+import { ref, onMounted, computed, reactive, watch, nextTick } from 'vue'
 import { useFooterMusicStore } from '../../store/index'
 const useFooterMusic = useFooterMusicStore()
 
-onMounted(()=>{
+onMounted(() => {
   if (props.audio) {
     props.audio.addEventListener('ended', handleEnded)
   }
@@ -109,82 +165,82 @@ onMounted(()=>{
 })
 
 // 分享界面
-const showShare = ref(false);
+const showShare = ref(false)
 const options = [
   [
     { name: '微信', icon: 'wechat' },
     { name: '朋友圈', icon: 'wechat-moments' },
     { name: '微博', icon: 'weibo' },
-    { name: 'QQ', icon: 'qq' },
+    { name: 'QQ', icon: 'qq' }
   ],
   [
     { name: '复制链接', icon: 'link' },
     { name: '分享海报', icon: 'poster' },
     { name: '二维码', icon: 'qrcode' },
-    { name: '小程序码', icon: 'weapp-qrcode' },
-  ],
-];
+    { name: '小程序码', icon: 'weapp-qrcode' }
+  ]
+]
 const updateShowShare = () => {
   // 点击触发函数修改 showShare状态
-  showShare.value = !showShare. value;
+  showShare.value = !showShare.value
 }
 // 添加一个监听音频播放结束的函数
 const handleEnded = () => {
-  useFooterMusic.isPlay = true 
+  useFooterMusic.isPlay = true
 }
 
 // 播放上一首 -1 / 下一首 1
-const goplay = (num:number)=>{
+const goplay = (num: number) => {
   let index = useFooterMusic.playListIndex + num
-  if(index < 0){
+  if (index < 0) {
     index = useFooterMusic.playList.length - 1
-  }else if(index == useFooterMusic.playList.length){
+  } else if (index == useFooterMusic.playList.length) {
     index = 0
   }
   useFooterMusic.updatePlayListIndex(index) // 更改仓库中数据
   updateDuration(index)
 }
 // 延迟 100 毫秒来确保播放器能够适当初始化 获得最新的总时长
-const updateDuration = (index:number)=>{
+const updateDuration = (index: number) => {
   setTimeout(() => {
     const audio = new Audio(useFooterMusic.playList[index].musicUrl)
     audio.addEventListener('loadedmetadata', () => {
       useFooterMusic.updateDurationTime(audio.duration) // 更新总时长
     })
-  }, 100) 
+  }, 100)
 }
 
 // 是否显示歌词
 const isLyricShow = ref(true)
 
-const lyric = computed(()=>{
+const lyric = computed(() => {
   let arr = reactive<any[]>([])
   // 换行符进行分割
-  arr = useFooterMusic.lyricList.split(/[(\r\n)\r\n]+/).map((item:any,index:any)=>{
-    let min = item.slice(1,3)
-    let sec = item.slice(4,6)
-    let mill = item.slice(7,10)
+  arr = useFooterMusic.lyricList.split(/[(\r\n)\r\n]+/).map((item: any, index: any) => {
+    let min = item.slice(1, 3)
+    let sec = item.slice(4, 6)
+    let mill = item.slice(7, 10)
     let lrc = item.slice(11, item.length)
-    if(isNaN(Number(mill))){
-      mill = item.slice(7,9)
-      lrc = item.slice(10,item.length)
+    if (isNaN(Number(mill))) {
+      mill = item.slice(7, 9)
+      lrc = item.slice(10, item.length)
     }
-    let time = parseInt( min)* 60 * 1000 + parseInt(sec)*1000 + parseInt(mill) // 公共毫秒数
-    
-    return {min,sec,mill,lrc,time}
+    let time = parseInt(min) * 60 * 1000 + parseInt(sec) * 1000 + parseInt(mill) // 公共毫秒数
+
+    return { min, sec, mill, lrc, time }
   })
   // 下一句歌词
-  arr.forEach((item,index) =>{
+  arr.forEach((item, index) => {
     // 判断最后一句
-    if(index === arr.length -1 || isNaN(arr[index+1].time)){
+    if (index === arr.length - 1 || isNaN(arr[index + 1].time)) {
       item.pre = 100000
-    }else{
+    } else {
       // 没到最后一句  拿到下一句歌词的时间
       item.pre = arr[index + 1].time
     }
-  }) 
+  })
   arr.shift()
-  
+
   return arr
 })
 
@@ -199,92 +255,88 @@ const musicLyric = ref()
   }
 }) */
 watch(
-  ()=> useFooterMusic.playListIndex,
-  ()=>{
-    if(audios){
-      useFooterMusic.updateDurationTime(audios.duration) 
+  () => useFooterMusic.playListIndex,
+  () => {
+    if (audios) {
+      useFooterMusic.updateDurationTime(audios.duration)
     }
   }
 )
-const isDraggingLyric = ref(false);
+const isDraggingLyric = ref(false)
 const handleLyricDragStart = () => {
-  isDraggingLyric.value = true;
-};
+  isDraggingLyric.value = true
+}
 
 const handleLyricDragEnd = () => {
-  setTimeout(()=>{
-    isDraggingLyric.value = false;
-  },5000)
-};
-
-
-
+  setTimeout(() => {
+    isDraggingLyric.value = false
+  }, 5000)
+}
 
 watch(
   () => useFooterMusic.currentTime,
   (newValue) => {
     // console.log(useFooterMusic.currentTime);
-    
-    if(useFooterMusic.currentTime == 0){
-      scrollToLyric(0, 300);
+
+    if (useFooterMusic.currentTime == 0) {
+      scrollToLyric(0, 300)
     }
-    const p = document.querySelector('p.active') as HTMLElement;
+    const p = document.querySelector('p.active') as HTMLElement
     // console.log(p.offsetTop)
-    
-    if(p && !isDraggingLyric.value) {
+
+    if (p && !isDraggingLyric.value) {
       if (p.offsetTop > 260 && musicLyric.value) {
-        scrollToLyric(p.offsetTop - 260, 200);
+        scrollToLyric(p.offsetTop - 260, 200)
       }
     }
     // 播放到最后
-    if(newValue === useFooterMusic.duration as unknown ){
+    if (newValue === (useFooterMusic.duration as unknown)) {
       useFooterMusic.currentTime = 0
       useFooterMusic.isPlay = false
-      scrollToLyric(0, 200);
-  
+      scrollToLyric(0, 200)
+
       // 判断是不是最后一首  是 回到第一首
-      if(useFooterMusic.playListIndex === useFooterMusic.playList.length -1){
-        useFooterMusic.updatePlayListIndex(0) 
+      if (useFooterMusic.playListIndex === useFooterMusic.playList.length - 1) {
+        useFooterMusic.updatePlayListIndex(0)
         useFooterMusic.isPlay = false
-      }else{
+      } else {
         // 切换下一首
         useFooterMusic.updatePlayListIndex(useFooterMusic.playListIndex + 1)
       }
       updateDuration(useFooterMusic.playListIndex)
     }
   }
-); 
+)
 
 function scrollToLyric(offset: number, duration: number) {
-  const container = musicLyric.value;
-  if (!container) return;
+  const container = musicLyric.value
+  if (!container) return
 
-  const startTime = Date.now();
-  const startScrollTop = container.scrollTop;
-  const targetScrollTop = offset;
-  const distance = targetScrollTop - startScrollTop;
+  const startTime = Date.now()
+  const startScrollTop = container.scrollTop
+  const targetScrollTop = offset
+  const distance = targetScrollTop - startScrollTop
 
   function scrollStep() {
-    const currentTime = Date.now() - startTime;
+    const currentTime = Date.now() - startTime
     if (currentTime < duration) {
-      const scrollTop = startScrollTop + (distance * currentTime / duration);
-      container.scrollTop = scrollTop;
-      requestAnimationFrame(scrollStep);
+      const scrollTop = startScrollTop + (distance * currentTime) / duration
+      container.scrollTop = scrollTop
+      requestAnimationFrame(scrollStep)
     } else {
-      container.scrollTop = targetScrollTop;
+      container.scrollTop = targetScrollTop
     }
   }
 
-  requestAnimationFrame(scrollStep);
+  requestAnimationFrame(scrollStep)
 }
 
 // 在视图挂载后将 musicLyric.value 赋值为实际元素的引用
 onMounted(() => {
   nextTick(() => {
-    musicLyric.value = document.querySelector('.lyric') as HTMLElement;
-  });
-});
-
+    musicLyric.value = document.querySelector('.lyric') as HTMLElement
+  })
+})
 </script>
 
 <style scoped lang="scss">
@@ -293,7 +345,7 @@ onMounted(() => {
   z-index: -1;
   width: 100%;
   height: 100%;
-  filter: blur(30px) ;
+  filter: blur(30px);
   // background-color: transparent;
 }
 
@@ -307,7 +359,7 @@ onMounted(() => {
   .detailTop {
     padding: 15px 15px 0 15px;
     height: 45px;
-    color: #FBFAF5;
+    color: #fbfaf5;
     align-items: center;
     // background-color: red;
     display: flex;
@@ -325,56 +377,55 @@ onMounted(() => {
       }
     }
   }
-  .detailCenter{
+  .detailCenter {
     position: relative;
     padding: 15px 15px 0 15px;
-    top:75px;
+    top: 75px;
     width: 100vw;
     height: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .magnetNeedle{
+    .magnetNeedle {
       // width: 100px;
       // height: 160px;
-      width:25%;
+      width: 25%;
       height: 33%;
       position: absolute;
       left: 47%;
-      top:-70px;
+      top: -70px;
       transform-origin: 0 0;
       transform: rotate(-35deg);
-      transition: all 2s; 
+      transition: all 2s;
     }
     // 若正在播放则使用 play这个类
-    .play{
-        transform: rotate(5deg);
+    .play {
+      transform: rotate(5deg);
     }
-    .disk{
-      // width: 320px;  
-      width: 80%; 
+    .disk {
+      // width: 320px;
+      width: 80%;
     }
-    .imgcenter{
+    .imgcenter {
       width: 46.66667vw;
       height: 46.66667vw;
       // width: 45%;
       // height: 42%;
       border-radius: 50%;
       position: absolute;
-      top:63px;
+      top: 63px;
       // bottom: 77.66667vw;
       border-radius: 50%;
       z-index: -1;
       animation: rotater 10s linear infinite;
       //   animation-play-state: paused;
-      animation-play-state: paused ;
-
+      animation-play-state: paused;
     }
-    .rotating{
-      animation-play-state: running ;
+    .rotating {
+      animation-play-state: running;
     }
   }
-  .lyric{
+  .lyric {
     padding-top: 15px;
     height: 65%;
     width: 100%;
@@ -384,30 +435,31 @@ onMounted(() => {
     margin-top: 10px;
     overflow-y: scroll;
     // overflow: hidden;
-    // transition: offsetTop ease; 
+    // transition: offsetTop ease;
     &::-webkit-scrollbar {
       width: 0px; /* 滚动条宽度 */
     }
-    p{
+    p {
       transition: all 0.5s ease;
       color: #efeeee;
-      margin-bottom:15px;
+      margin-bottom: 15px;
     }
-    .active{
-      color:#ffffff;
-      text-shadow: 0 0 10px rgb(168, 128, 243),
-             0 0 20px rgb(237, 94, 232);
-            //  0 0 30px white,
-            //  0 0 40px white,
-            //  0 0 50px white;
+    .active {
+      color: #ffffff;
+      text-shadow:
+        0 0 10px rgb(168, 128, 243),
+        0 0 20px rgb(237, 94, 232);
+      //  0 0 30px white,
+      //  0 0 40px white,
+      //  0 0 50px white;
       font-size: 22px;
-      white-space:nowrap;
+      white-space: nowrap;
     }
   }
-  .detailBottom{
+  .detailBottom {
     margin-bottom: 80px;
     padding: 15px 15px 0 15px;
-    margin-top:10px;
+    margin-top: 10px;
     width: 100%;
     height: 20%;
 
@@ -415,45 +467,43 @@ onMounted(() => {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    .testIconList{
+    .testIconList {
       display: flex;
       justify-content: space-between;
       width: 95%;
       align-items: center;
       // border: 1px solid blue;
-      .leaveAMsg{
+      .leaveAMsg {
         position: relative;
         top: 4px;
       }
-      :deep(.van-badge--top-right){
-        top:5px;
+      :deep(.van-badge--top-right) {
+        top: 5px;
         right: 1px;
       }
-      :deep(.van-badge){
+      :deep(.van-badge) {
         border: none;
         font-weight: 200;
       }
     }
     // 进度条
-    .progressBar{
+    .progressBar {
       width: 100%;
       height: 30px;
       // border: 1px solid goldenrod;
       line-height: 20px;
-      .range{
+      .range {
         width: 100%;
         height: 3px;
-    
       }
     }
-    .controlMusic{
+    .controlMusic {
       width: 95%;
       height: 40px;
       // border: 1px solid green;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
     }
   }
 }

@@ -2,34 +2,56 @@
   <div class="FooterMusic">
     <div class="info" @click="useFooterMusic.updateDetailShow">
       <div class="avatar">
-        <img :class="{ rotating: !useFooterMusic.isPlay }" src="../../assets/avatar.webp" alt="">
+        <img :class="{ rotating: !useFooterMusic.isPlay }" src="../../assets/avatar.webp" alt="" />
         <!-- <img ref="avatarImg" :src="useFooterMusic.playList[0].al.picUrl" alt=""> -->
       </div>
       <div class="info_music" v-if="useFooterMusic.playList">
         <Vue3Marquee>
-          <span class="musicName">{{ useFooterMusic.playList[useFooterMusic.playListIndex]?.musicName }}</span>
+          <span class="musicName">
+            {{ useFooterMusic.playList[useFooterMusic.playListIndex]?.musicName }}
+          </span>
           -
-          <span class="author">{{ useFooterMusic.playList[useFooterMusic.playListIndex]?.musicArtist }}</span>
+          <span class="author">
+            {{ useFooterMusic.playList[useFooterMusic.playListIndex]?.musicArtist }}
+          </span>
         </Vue3Marquee>
       </div>
-
     </div>
     <div class="playmusic">
-      <svg-icon v-if="useFooterMusic.isPlay" @click="play" name="play2" width="20px" height="20px"></svg-icon>
+      <svg-icon
+        v-if="useFooterMusic.isPlay"
+        @click="play"
+        name="play2"
+        width="20px"
+        height="20px"
+      ></svg-icon>
       <svg-icon v-else @click="noplay" name="suspend" width="20px" height="20px"></svg-icon>
 
       <svg-icon name="playlist" width="20px" height="20px" class="playlist"></svg-icon>
     </div>
-    <audio ref="audio"
-      :src="`http://127.0.0.1:3007/upload/musicData/${useFooterMusic.playList[useFooterMusic.playListIndex].musicName}-${useFooterMusic.playList[useFooterMusic.playListIndex].musicArtist}.mp3`"></audio>
+    <audio
+      ref="audio"
+      :src="`http://127.0.0.1:3007/upload/musicData/${
+        useFooterMusic.playList[useFooterMusic.playListIndex].musicName
+      }-${useFooterMusic.playList[useFooterMusic.playListIndex].musicArtist}.mp3`"
+    ></audio>
 
     <!-- 点击左侧信息区域 弹出歌曲详情 -->
-    <van-popup v-model:show="useFooterMusic.detailShow" position="bottom" :style="{ height: '100%', width: '100%' }">
+    <van-popup
+      v-model:show="useFooterMusic.detailShow"
+      position="bottom"
+      :style="{ height: '100%', width: '100%' }"
+    >
       <!-- 把正在展示的这首歌信息传递给子组件 -->
-      <musicDetail :audio="audio" :handleEnded="handleEnded"
+      <musicDetail
+        :audio="audio"
+        :handleEnded="handleEnded"
         :playList="useFooterMusic.playList[useFooterMusic.playListIndex]"
-        :updateDetailShow="useFooterMusic.updateDetailShow" :play="play" :noplay="noplay" :addDuration="addDuration">
-      </musicDetail>
+        :updateDetailShow="useFooterMusic.updateDetailShow"
+        :play="play"
+        :noplay="noplay"
+        :addDuration="addDuration"
+      ></musicDetail>
     </van-popup>
   </div>
 </template>
@@ -42,12 +64,12 @@ import musicDetail from '@/views/musicDetail/index.vue'
 import { useFooterMusicStore } from '@/store/index.ts'
 import { onMounted, ref, onUpdated, reactive, watch } from 'vue'
 let audio = ref(new Audio())
-console.log(audio);
+console.log(audio)
 const useFooterMusic = useFooterMusicStore()
 
 // useFooterMusic.updateDurationTime(localStorage.getItem('footerMusic.duration'))
 
-console.log(useFooterMusic.playList[useFooterMusic.playListIndex]);
+console.log(useFooterMusic.playList[useFooterMusic.playListIndex])
 
 onMounted(async () => {
   await useFooterMusic.getMusic()
@@ -64,17 +86,17 @@ onMounted(async () => {
   useFooterMusic.musicList = JSON.parse(sessionStorage.getItem('itemDetail'))
   } */
 
-let interVal: ReturnType<typeof setInterval> | undefined;
+let interVal: ReturnType<typeof setInterval> | undefined
 // 播放状态  false 正在播放  true 停止播放
 const play = () => {
   if (audio.value) {
-    const getLocalStoreage = JSON.parse((localStorage.getItem('footerMusic') as string));
+    const getLocalStoreage = JSON.parse(localStorage.getItem('footerMusic') as string)
     let current = getLocalStoreage.currentTime as number
-    if (current ) {
+    if (current) {
       audio.value.currentTime = current
     } else {
       // 如果获取的时间不合法，设置默认值
-      audio.value.currentTime = 0;
+      audio.value.currentTime = 0
     }
     audio.value.play()
     useFooterMusic.isPlay = false
@@ -97,8 +119,6 @@ const noplay = () => {
     clearInterval(interVal) // 暂停清除定时器
   }
 }
-
-
 
 onUpdated(async () => {
   // 获取歌词
@@ -126,17 +146,17 @@ watch(
       // 若是暂停状态 修改图标
       useFooterMusic.isPlay = false
     }
-  })
+  }
+)
 
-  // watch(
-  //   ()=> useFooterMusic.playList,
-  //   ()=>{
-  //     if(useFooterMusic.isPlay){
-  //        audio.value.autoplay = true
-  //     }
-  //   }
-  // )
-
+// watch(
+//   ()=> useFooterMusic.playList,
+//   ()=>{
+//     if(useFooterMusic.isPlay){
+//        audio.value.autoplay = true
+//     }
+//   }
+// )
 </script>
 
 <style scoped lang="scss">
@@ -214,7 +234,6 @@ watch(
 
     // .playlist {}
   }
-
 }
 
 @keyframes rotate {
@@ -225,4 +244,5 @@ watch(
   to {
     transform: rotate(360deg);
   }
-}</style>
+}
+</style>

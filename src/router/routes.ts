@@ -1,9 +1,8 @@
-
 // 对面暴露
 export const constantRoute = [
   {
     path: '/login',
-    component: () => import('@/views/login/index.vue'),// 路由懒加载
+    component: () => import('@/views/login/index.vue'), // 路由懒加载
     name: 'login' // 命名路由
   },
   {
@@ -41,9 +40,9 @@ export const constantRoute = [
     component: () => import('@/views/songListDetail/index.vue')
   },
   {
-    path: "/404",
-    name: "404",
-    component: () => import('@/views/404/index.vue'),
+    path: '/404',
+    name: '404',
+    component: () => import('@/views/404/index.vue')
   },
   {
     // 任意路由
@@ -51,5 +50,4 @@ export const constantRoute = [
     redirect: '/404', // 重定向到404
     name: 'any'
   }
-
 ]

@@ -9,7 +9,6 @@ import { useUserStore } from './store/index.js'
 import pinia from './store'
 const userStore = useUserStore(pinia)
 
-
 // 全局守卫: 项目中任意路由切换都会触发的钩子
 // 全局前置守卫 访问某一个路由之前守卫
 router.beforeEach(async (to: any, from: any, next: any) => {

@@ -8,7 +8,7 @@
 export default {
   mounted() {
     const canvas = document.querySelector('#canvas')
-    let ctx = canvas.getContext("2d")
+    let ctx = canvas.getContext('2d')
     canvas.width = window.innerWidth
     canvas.height = window.innerHeight
     let meteors = []
@@ -22,10 +22,12 @@ export default {
 
     const newmeteor = () => {
       meteors.push({
-        lines: [{
-          x: parseInt(Math.random() * canvas.width),
-          y: parseInt(Math.random() * canvas.height * 0.7)
-        }],
+        lines: [
+          {
+            x: parseInt(Math.random() * canvas.width),
+            y: parseInt(Math.random() * canvas.height * 0.7)
+          }
+        ],
 
         life: parseInt(Math.random() * 100) + 100,
         age: 0
@@ -80,7 +82,7 @@ body {
   width: 100%;
   height: 100vh;
   position: fixed;
-  background:url('./222.jpg');
+  background: url('./222.jpg');
   background-size: cover;
   background-position: center bottom;
 }
@@ -89,6 +91,5 @@ body {
   filter: drop-shadow(0 0 1px rgb(241, 241, 241));
   width: 100%;
   height: 100%;
-
 }
 </style>
